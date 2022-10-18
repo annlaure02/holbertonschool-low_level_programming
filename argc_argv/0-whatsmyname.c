@@ -4,6 +4,9 @@
 /**
  * main - print the name of the program
  *
+ * @argc: number of arguments
+ * @argv: arguments in array
+ *
  * Return: 0
  */
 
