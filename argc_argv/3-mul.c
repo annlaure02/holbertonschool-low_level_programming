@@ -9,7 +9,7 @@
  * @argc: number of arguments
  * @argv: arguments in the array
  *
- * Return: 1
+ * Return: 0 if there is 2 arguments otherwise 1
  */
 
 int main(int argc, char *argv[])
@@ -24,5 +24,6 @@ int main(int argc, char *argv[])
 		return (1);
 	}
 	printf("%d\n", r);
+
 	return (0);
 }
