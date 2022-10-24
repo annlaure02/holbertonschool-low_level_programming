@@ -49,14 +49,19 @@ char *str_concat(char *s1, char *s2)
 
 	both = malloc(sizeof(char) * r);
 
-	if (both == NULL)
-		return (NULL);
-
 	for (i = 0; i < lenght_s1; i++)
+	{
+		if (both == NULL)
+			return (NULL);
 		both[i] = s1[i];
+	}
 
 	for (i = 0; i < lenght_s2; i++)
+	{
+		if (both == NULL)
+			return (NULL);
 		both[lenght_s1 + i] = s2[i];
+	}
 
 	both[r - 1] = '\0';
 
