@@ -51,5 +51,6 @@ char *str_concat(char *s1, char *s2)
 	both[r - 1] = '\0';
 
 	return (both);
+	free(both);
 }
 
