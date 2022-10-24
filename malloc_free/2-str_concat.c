@@ -40,16 +40,17 @@ char *str_concat(char *s1, char *s2)
 	int r = lenght_s1 + lenght_s2 + 1;
 	int i;
 
-	both = malloc(sizeof(char) * r);
-
-	if (both == NULL)
-		return (NULL);
 
 	if (s1 == NULL)
 		s1 = " ";
 
 	if (s2 == NULL)
 		s2 = " ";
+
+	both = malloc(sizeof(char) * r);
+
+	if (both == NULL)
+		return (NULL);
 
 	for (i = 0; i < lenght_s1; i++)
 		both[i] = s1[i];
