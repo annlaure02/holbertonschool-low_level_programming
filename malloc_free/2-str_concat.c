@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include "main.h"
+#include <stdio.h>
 
 /**
  * _strlen - calculate the length of a string
@@ -35,17 +36,20 @@ int _strlen(char *s)
 char *str_concat(char *s1, char *s2)
 {
 	char *both;
-	int lenght_s1 = _strlen(s1);
-	int lenght_s2 = _strlen(s2);
-	int r = lenght_s1 + lenght_s2 + 1;
-	int i;
+	int lenght_s1;
+	int lenght_s2;
+	int i, r;
 
 
 	if (s1 == NULL)
-		s1 = " ";
+		s1 = "";
 
 	if (s2 == NULL)
-		s2 = " ";
+		s2 = "";
+
+	lenght_s1 = _strlen(s1);
+	lenght_s2 = _strlen(s2);
+	r = lenght_s1 + lenght_s2 + 1;
 
 	both = malloc(sizeof(char) * r);
 
@@ -60,7 +64,7 @@ char *str_concat(char *s1, char *s2)
 	{
 		if (both == NULL)
 			return (NULL);
-		both[lenght_s1 + i] = s2[i];
+		both[lenght_s1++] = s2[i];
 	}
 
 	both[r - 1] = '\0';
