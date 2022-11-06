@@ -37,9 +37,6 @@ void _float(va_list ap)
  */
 void _string(va_list ap)
 {
-	if (va_arg(ap, char *) == NULL)
-		printf("(nil");
-
 	printf("%s", va_arg(ap, char *));
 }
 
@@ -61,21 +58,24 @@ void print_all(const char * const format, ...)
 		{NULL, NULL}
 	};
 	int x = 0, y = 0;
-	char *separator = ", ";
+	char *separator = "";
 	va_list ap;
 
 	va_start(ap, format);
-	while (format && format[x] != '\0')
+	
+	while (format != NULL && format[x] != '\0')
 	{
 		while (prt[y].a)
 		{
-			if (*(prt[y].b) == format[x])
+			if (*prt[y].b == format[x])
 			{
-				prt[y].a(ap);
 				printf("%s", separator);
+				prt[y].a(ap);
+				separator = ", ";
 			}
 			y++;
 		}
+		y = 0;
 		x++;
 	}
 	printf("\n");
