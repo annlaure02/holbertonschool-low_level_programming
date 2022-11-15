@@ -5,7 +5,7 @@
  *
  * @head: pointer of a pointer
  *
- * Return: the address of the new element, or NULL if it failed
+ * Return: 
  */
 
 void free_list(list_t *head)
