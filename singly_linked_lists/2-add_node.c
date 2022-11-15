@@ -22,14 +22,9 @@ list_t *add_node(list_t **head, const char *str)
 		free(newNode);
 		return (NULL);
 	}
-	if (dup == NULL)
-	{
-		free(newNode);
-		return (NULL);
-	}
+
 	for (nlen = 0; str[nlen]; nlen++)
 	{
-		;
 	}
 	newNode->str = dup;
 	newNode->len = nlen;
