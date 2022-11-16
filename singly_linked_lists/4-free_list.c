@@ -5,7 +5,7 @@
  *
  * @head: pointer of a pointer
  *
- * Return: 
+ * Return: void
  */
 
 void free_list(list_t *head)
