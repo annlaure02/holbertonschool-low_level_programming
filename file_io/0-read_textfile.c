@@ -3,7 +3,7 @@
 /**
  * read_textfile - read a text file and print it to the POSIX standard output
  *
- * @filename: filename
+ * @filename: name of the file
  * @letters: number of letters it should read and print
  *
  * Return: actual number of letters it could read and print
@@ -16,7 +16,10 @@ ssize_t read_textfile(const char *filename, size_t letters)
 
 	buf = malloc(sizeof(char) * letters);
 	if (buf == NULL)
+	{
+		free(buf);
 		return (0);
+	}
 
 	op = open(filename, O_RDONLY);
 	rd = read(op, buf, letters);
