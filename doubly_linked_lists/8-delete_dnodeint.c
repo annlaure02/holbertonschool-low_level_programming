@@ -20,21 +20,21 @@ int delete_dnodeint_at_index(dlistint_t **head, unsigned int index)
 	if (index == 0)
 	{
 		*head = (*head)->next;
-		(*head)->prev = NULL;
+		if (*head != NULL)
+			(*head)->prev = NULL;
 		free(delNode);
 		return (1);
 	}
-	for (i = 0; i < index; i++)
+	for (i = 0; i < index; i--)
 	{
 		if (delNode == NULL)
 			return (-1);
 		delNode = delNode->next;
+	
 	}
-	if (delNode != NULL)
-	{
-		delNode->prev->next = delNode->next;
+	delNode->prev->next = delNode->next;
+	if (delNode->next != NULL)
 		delNode->next->prev = delNode->prev;
-		free(delNode);
-	}
+	free(delNode);
 	return (1);
 }
