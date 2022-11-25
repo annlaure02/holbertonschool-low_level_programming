@@ -15,12 +15,12 @@ char *hash_table_get(const hash_table_t *ht, const char *key)
 	hash_node_t *node;
 	unsigned long int index;
 
-	index = key_index((const unsigned char *)key, ht->size);
-
 	if (ht == NULL || key == NULL)
 		return (NULL);
 
+	index = key_index((const unsigned char *)key, ht->size);
 	node = ht->array[index];
+
 	if (node == NULL)
 		return (NULL);
 
@@ -30,5 +30,6 @@ char *hash_table_get(const hash_table_t *ht, const char *key)
 			return (node->value);
 		node = node->next;
 	}
+
 	return (NULL);
 }
