@@ -6,7 +6,7 @@
  * @ht: the hash table you want to look into
  * @key: the key we looking for
  *
- * Return: the value associated with the element, or NULL if key 
+ * Return: the value associated with the element, or NULL if key
  * couldn’t be found
  */
 
@@ -21,6 +21,8 @@ char *hash_table_get(const hash_table_t *ht, const char *key)
 		return (NULL);
 
 	node = ht->array[index];
+	if (node == NULL)
+		return (NULL);
 
 	while (node != NULL)
 	{
