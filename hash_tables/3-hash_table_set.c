@@ -16,11 +16,10 @@ int hash_table_set(hash_table_t *ht, const char *key, const char *value)
 	char *dupValue;
 	unsigned long int index, i;
 
-	index = key_index((const unsigned char *) key, ht->size);
-	dupValue = strdup(value);
 	if (ht == NULL || key == NULL || value == NULL)
 		return (0);
-
+	index = key_index((const unsigned char *) key, ht->size);
+	dupValue = strdup(value);
 	/**new = malloc(sizeof(hash_node_t));
 	if (new == NULL)
 	{
