@@ -1,58 +1,19 @@
 #include "main.h"
 
 /**
- * cp_file - copy file
- *
- * @src: source
- * @dest: destination
- *
- * Return: void
+ * close_file - Close file
+ * @file: file
  */
 
-void cp_file(char *src, char *dest)
+void close_file(int file)
 {
-	int op1, op2, rd, wr;
-	char buffer[1024];
+	int cl;
 
-	op1 = open(src, O_RDONLY);
-	op2 = open(dest, O_CREAT | O_WRONLY | O_TRUNC, 0664);
-	if (op1 < 0)
+	cl = close(file);
+
+	if (cl == -1)
 	{
-		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", src);
-		exit(98);
-	}
-	if (op2 < 0)
-        {
-		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", dest);
-		exit(99);
-        }
-	while (1)
-	{
-		rd = read(op1, buffer, 1024);
-		if (rd == -1)
-		{
-			dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", src);
-			exit(98);
-		}
-		if (rd == 0)
-			break;
-		wr = write(op2, buffer, rd);
-		if (wr == -1 || wr != rd)
-		{
-			dprintf(STDERR_FILENO, "Error: Can't write to %s\n", dest);
-			exit(99);
-			close(op1);
-		}
-	}
-	if (close(op1) == -1)
-	{
-		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", op1);
-		exit(100);
-		close(op2);
-	}
-	if (close(op2) == -1)
-	{
-		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", op2);
+		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", file);
 		exit(100);
 	}
 }
@@ -68,12 +29,40 @@ void cp_file(char *src, char *dest)
 
 int main(int argc, char **argv)
 {
+	int op1, op2, rd, wr;
+	char buffer[1024];
+
 	if (argc != 3)
 	{
 		dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n");
 		exit(97);
 	}
-	cp_file(argv[1], argv[2]);
+
+	op1 = open(argv[1], O_RDONLY);
+	rd = read(op1, buffer, 1024);
+	op2 = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
+
+	while (rd > 0)
+	{
+		wr = write(op2, buffer, rd);
+		rd = read(op1, buffer, 1024);
+		op2 = open(argv[2], O_WRONLY | O_APPEND);
+	}
+
+	if (op1 == -1 || rd == -1)
+	{
+		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", argv[1]);
+		exit(98);
+	}
+
+	if (op2 == -1 || wr == -1)
+	{
+		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", argv[2]);
+		exit(99);
+	}
+
+	close_file(op1);
+	close_file(op2);
 
 	return (0);
 }
